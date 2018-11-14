@@ -1,48 +1,29 @@
-var lastSize = {
-    width: -1,
-    height: -1,
-    stickyTop: -1
-};
+import {observeRect} from "./rect-observer";
+import {notifyParentWindow} from "./utils";
 
-var stickyBar = document.querySelector('.sticky-bar');
+// observe body's height and notify the parent window about changes
+observeRect(document.body, 'height', (height) => {
+    notifyParentWindow('iframe-resize', {height});
+});
 
-function checkSizes() {
-    var newSize = getComputedSize();
-    if (newSize && (lastSize.height !== newSize.height || lastSize.width !== newSize.width)) {
-        lastSize = newSize;
-        notifyParent('iframe-resize', newSize);
-    }
-}
+// observe sticky-bar's top-offset and notify the parent window about changes
+const stickyBar = document.querySelector('.sticky-bar');
+observeRect(stickyBar, 'y', (y) => {
+    notifyParentWindow('sticky-bar-offset', {y});
+});
 
-function getComputedSize() {
-    var rect = document.body.getBoundingClientRect();
-    var stickyBarRect = stickyBar.getBoundingClientRect();
-    return rect && stickyBarRect && {
-        height: parseFloat(rect.height),
-        width: parseFloat(rect.width),
-        stickyTop: parseFloat(stickyBarRect.y)
-    };
-}
-
-function notifyParent(action, payload) {
-    window.parent.postMessage(JSON.stringify({
-        action: action,
-        payload: payload,
-    }), '*');
-}
+// notify the parent window about changes in the content of the sticky-bar
+updateStickyBarContent();
+window.updateStickyBarContent = updateStickyBarContent;
 
 function updateStickyBarContent() {
-    var content = stickyBar.innerHTML;
-    var counter = stickyBar.querySelector('span');
+    const content = stickyBar.innerHTML;
+    const counter = stickyBar.querySelector('span');
     counter.textContent = parseInt(counter.textContent) + 1;
-    notifyParent('sticky-bar-update', {
+    notifyParentWindow('sticky-bar-update', {
         content: content
     });
 }
 
-checkSizes();
-updateStickyBarContent();
 
-// check for changes every 100 ms
-window.setInterval(checkSizes, 100);
-window.updateStickyBarContent = updateStickyBarContent;
+

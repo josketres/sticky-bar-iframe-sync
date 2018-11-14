@@ -10,12 +10,18 @@ function resizeIframe(payload) {
     placeholder.style.height = payload.stickyTop + 'px';
 }
 
+function updateStickyBarOffset(payload) {
+    console.log(payload);
+    placeholder.style.height = payload.y + 'px';
+}
+
 function stickyBarUpdate(payload) {
     stickyBar.innerHTML = payload.content;
 }
 
 registerMessageListeners({
     'iframe-resize': resizeIframe,
+    'sticky-bar-offset': updateStickyBarOffset,
     'sticky-bar-update': stickyBarUpdate
 });
 

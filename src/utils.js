@@ -18,6 +18,14 @@ export const registerMessageListeners = (actions) => {
     }
 };
 
+export const notifyParentWindow = (action, payload) => {
+    window.parent.postMessage(JSON.stringify({
+        action: action,
+        payload: payload,
+    }), '*');
+};
+
+
 
 
 

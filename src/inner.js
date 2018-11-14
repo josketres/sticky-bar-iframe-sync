@@ -10,7 +10,7 @@ function checkSizes() {
     var newSize = getComputedSize();
     if (newSize && (lastSize.height !== newSize.height || lastSize.width !== newSize.width)) {
         lastSize = newSize;
-        notifyParent('resize', newSize);
+        notifyParent('iframe-resize', newSize);
     }
 }
 

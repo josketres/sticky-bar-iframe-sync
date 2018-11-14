@@ -1,19 +1,11 @@
 
-:root {
-    margin: 0;
-    padding: 0;
-}
-
 body {
     background: white;
     margin: 0;
     padding: 16px;
 }
 
-.layout-container {
-    overflow: auto; /* clean collapsing margins */
-}
-
+/* this styles should be shared with outer.css */
 .sticky-bar {
     overflow: auto; /* clean collapsing margins */
     visibility: hidden; /* only reserve the place without being rendered */

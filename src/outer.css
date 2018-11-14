@@ -1,6 +1,9 @@
 
 body {
     background: lightblue;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px;
 }
 
 iframe {
@@ -10,26 +13,18 @@ iframe {
     height: 0;
 }
 
-.outer-container {
-    margin: 0 auto;
-    max-width: 950px;
-}
-
 .iframe-wrapper {
     position: relative;
 }
 
 .overlay {
+    background: transparent;
     pointer-events: none;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-}
-
-.placeholder {
-    width: 100%;
 }
 
 .sticky-container {

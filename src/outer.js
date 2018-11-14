@@ -11,7 +11,6 @@ function resizeIframe(payload) {
 }
 
 function updateStickyBarOffset(payload) {
-    console.log(payload);
     placeholder.style.height = payload.y + 'px';
 }
 
@@ -24,5 +23,3 @@ registerMessageListeners({
     'sticky-bar-offset': updateStickyBarOffset,
     'sticky-bar-update': stickyBarUpdate
 });
-
-

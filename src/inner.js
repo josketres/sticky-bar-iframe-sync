@@ -24,6 +24,3 @@ function updateStickyBarContent() {
         content: content
     });
 }
-
-
-
